@@ -1,0 +1,7 @@
+{
+  "name": "jollof",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
