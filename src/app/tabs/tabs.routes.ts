@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import AppGuard from '../guard/app-guard';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,7 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
     ],
+    canActivate: [AppGuard],
   },
   {
     path: '',

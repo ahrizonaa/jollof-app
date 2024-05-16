@@ -1,0 +1,29 @@
+.content {
+  position: relative;
+}
+
+.signin-container {
+  position: absolute;
+  height: 100%;
+  width: fit-content;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 25%;
+}
+
+.signin-message {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  overflow: hidden;
+  color: white;
+}
