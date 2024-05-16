@@ -23,7 +23,7 @@ declare const FB: any;
 const FACEBOOK_PERMISSIONS = ['email', 'public_profile'];
 
 import { addIcons } from 'ionicons';
-import { logoFacebook } from 'ionicons/icons';
+import { logoFacebook, logoGoogle } from 'ionicons/icons';
 
 @Component({
   selector: 'app-login',
@@ -42,6 +42,7 @@ export class SigninComponent implements OnInit, AfterViewInit {
   ) {
     addIcons({
       logoFacebook,
+      logoGoogle,
     });
     if (!isPlatform('capacitor')) {
       this.GetClientId().subscribe(
