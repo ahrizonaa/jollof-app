@@ -21,4 +21,5 @@ export type NimbelWearUser = {
   id: string;
   GoogleUser?: User | null;
   FacebookUser?: FacebookUser | null;
+  profile?: any;
 };

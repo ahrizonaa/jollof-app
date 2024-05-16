@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { SigninComponent } from './components/signin/signin.component';
 import LoginGuard from './guard/loginguard';
+import { OnboardComponent } from './components/onboard/onboard.component';
 
 export const routes: Routes = [
   {
@@ -11,5 +12,9 @@ export const routes: Routes = [
     path: 'login',
     component: SigninComponent,
     canActivate: [LoginGuard],
+  },
+  {
+    path: 'onboard',
+    component: OnboardComponent,
   },
 ];

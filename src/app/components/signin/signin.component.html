@@ -1,32 +1,34 @@
-<div class="jollof-logo-container">
-  <img class="jollof-logo" src="../../../assets/jollof.jpg" />
-</div>
+<ion-content>
+  <div class="jollof-logo-container">
+    <img class="jollof-logo" src="../../../assets/jollof.jpg" />
+  </div>
 
-<div class="signin-container">
-  <ion-button
-    expand="full"
-    shape="round"
-    *ngIf="!user.currentUser || !user.currentUser.email"
-    color="dark"
-    style="width: 100%"
-    (click)="SignInGoogle()"
-  >
-    <ion-icon name="logo-google" slot="start"></ion-icon>&nbsp; Continue With
-    Google
-  </ion-button>
-  <ion-button
-    expand="full"
-    shape="round"
-    *ngIf="!user.currentUser || !user.currentUser.email"
-    color="dark"
-    style="width: 100%"
-    (click)="SignInFB()"
-  >
-    <ion-icon
-      style="color: #4267b2"
-      slot="start"
-      name="logo-facebook"
-    ></ion-icon
-    >&nbsp; Continue With Facebook
-  </ion-button>
-</div>
+  <div class="signin-container">
+    <ion-button
+      expand="full"
+      shape="round"
+      *ngIf="!user.currentUser || !user.currentUser.email"
+      color="dark"
+      style="width: 100%"
+      (click)="SignInGoogle()"
+    >
+      <ion-icon name="logo-google" slot="start"></ion-icon>&nbsp; Continue With
+      Google
+    </ion-button>
+    <ion-button
+      expand="full"
+      shape="round"
+      *ngIf="!user.currentUser || !user.currentUser.email"
+      color="dark"
+      style="width: 100%"
+      (click)="SignInFB()"
+    >
+      <ion-icon
+        style="color: #4267b2"
+        slot="start"
+        name="logo-facebook"
+      ></ion-icon
+      >&nbsp; Continue With Facebook
+    </ion-button>
+  </div>
+</ion-content>

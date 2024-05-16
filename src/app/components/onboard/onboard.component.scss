@@ -1,0 +1,56 @@
+.main {
+  height: 100%;
+  width: 100%;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // flex-direction: column;
+  position: relative;
+}
+
+.onboard-card {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: fit-content;
+  width: 90%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.final-row {
+  display: flex;
+  justify-content: center;
+}
+
+.text-input {
+  width: fit-content;
+  text-align: right;
+}
+
+ion-modal#country-modal {
+  --height: auto;
+  align-items: end;
+}
+
+#country-modal ion-picker {
+  margin-bottom: var(--ion-safe-area-bottom);
+}
+
+.jollof-logo {
+  transform: scale(0.5) translateY(-200px);
+}
+
+.switch-account-button {
+  position: absolute;
+  bottom: 150px;
+  left: 0;
+  right: 0;
+}
