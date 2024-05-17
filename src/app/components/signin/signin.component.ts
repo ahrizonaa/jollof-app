@@ -107,24 +107,6 @@ export class SigninComponent implements OnInit, AfterViewInit {
   SignedIn(user: GoogleUser | FacebookUser, provider: 'Google' | 'Facebook') {
     this.log.debug('LoginComponent.SignedIn()', user);
     this.user.SignIn(user, provider);
-    this.Greet();
-  }
-
-  Greet() {
-    this.router.navigate(['/']);
-    // setTimeout(() => {
-    //   new Typewriter('#signin-message', {
-    //     strings: ['Signing in as ' + this.user.currentUser?.name],
-    //     autoStart: true,
-    //     delay: 30,
-    //     pauseFor: 400,
-    //     deleteSpeed: 15,
-    //   }).callFunction(() => {
-    //     this.zone.run(() => {
-    //       this.router.navigate(['/']);
-    //     });
-    //   });
-    // }, 0);
   }
 
   async SignOut() {

@@ -1,6 +1,6 @@
 const env = {
-  dev: 'http://localhost:8080',
-  prod: 'https://charmee-webservices-7sgqd.ondigitalocean.app',
+  dev: 'http://localhost:8080/jollof',
+  prod: 'https://charmee-webservices-7sgqd.ondigitalocean.app/jollof',
 };
 
 export class Api {

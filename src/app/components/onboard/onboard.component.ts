@@ -59,7 +59,8 @@ export class OnboardComponent {
     let limitDate = new Date();
     limitDate.setFullYear(currentDate.getFullYear() - 18);
     let selectedDate = new Date(e.detail.value);
-    this.birthdateValid = selectedDate <= limitDate;
+    this.birthdate = selectedDate;
+    this.birthdateValid = this.birthdate <= limitDate;
     this.validateForm();
   }
 
@@ -79,19 +80,12 @@ export class OnboardComponent {
   }
 
   proceedClicked() {
-    this.api
-      .post('register', {
-        user: this.user.currentUser,
-        profile: {
-          name: this.fullName,
-          phoneNumber: this.phoneNumber,
-          birthdate: this.birthdate.toLocaleDateString('en-US'),
-          country: this.country,
-        },
-      })
-      .subscribe((res) => {
-        // proceed
-      });
+    this.user.Register({
+      name: this.fullName,
+      phoneNumber: this.phoneNumber,
+      birthdate: this.birthdate.toLocaleDateString('en-US'),
+      country: this.country,
+    });
   }
 
   validateForm() {

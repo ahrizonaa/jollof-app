@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LogService } from './log.service';
 import { GoogleUser, FacebookUser, NimbelWearUser } from '../types/User';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class UserService {
   currentUser: NimbelWearUser | null = null;
   logoutEmitter: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private log: LogService) {}
+  constructor(private log: LogService, private router: Router) {}
 
   SignIn(user: GoogleUser | FacebookUser, provider: 'Google' | 'Facebook') {
     switch (provider) {
@@ -43,6 +44,16 @@ export class UserService {
     }
 
     localStorage.setItem('user', JSON.stringify(this.currentUser));
+
+    this.router.navigate(['/']);
+  }
+
+  Register(profile: any) {
+    if (this.currentUser != null) {
+      this.currentUser.profile = profile;
+      localStorage.setItem('user', JSON.stringify(this.currentUser));
+      this.router.navigate(['/']);
+    }
   }
 
   async SignOut(params?: any) {
