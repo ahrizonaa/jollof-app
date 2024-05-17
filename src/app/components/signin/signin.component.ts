@@ -135,7 +135,7 @@ export class SigninComponent implements OnInit, AfterViewInit {
   }
 
   async InitFB() {
-    await FacebookLogin.initialize({ appId: '3620876911459542' });
+    await FacebookLogin.initialize({ appId: '421946357352421' });
   }
 
   InitLogoutListener() {

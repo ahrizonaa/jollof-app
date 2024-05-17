@@ -66,7 +66,7 @@ export class LogService {
 
   private postLog(log: Log): void {
     this.http
-      .post(`${api.url}/nimbelwear/log`, {
+      .post(`${api.url}/log`, {
         ...log,
         deviceInfo: this.deviceInfo,
       })
