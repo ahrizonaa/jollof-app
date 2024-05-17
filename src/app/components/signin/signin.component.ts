@@ -1,6 +1,5 @@
 import { Component, NgZone, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { NgIf } from '@angular/common';
 import { ApiService } from '../../services/api.service';
@@ -17,6 +16,8 @@ import {
 } from '@capacitor-community/facebook-login';
 import { GoogleUser, FacebookUser, NimbelWearUser } from '../../types/User';
 
+import { IonContent, IonButton, IonIcon } from '@ionic/angular/standalone';
+
 declare const Typewriter: any;
 declare const FB: any;
 
@@ -30,7 +31,7 @@ import { logoFacebook, logoGoogle } from 'ionicons/icons';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
   standalone: true,
-  imports: [IonicModule, NgIf],
+  imports: [IonContent, IonButton, IonIcon, NgIf],
 })
 export class SigninComponent implements OnInit, AfterViewInit {
   constructor(

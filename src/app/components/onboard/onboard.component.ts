@@ -2,8 +2,23 @@ import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-
+import {
+  IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonCardTitle,
+  IonContent,
+  IonInput,
+  IonDatetimeButton,
+  IonDatetime,
+  IonModal,
+  IonToolbar,
+  IonButtons,
+  IonPicker,
+  IonPickerColumn,
+  IonPickerColumnOption,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   personOutline,
@@ -19,7 +34,25 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './onboard.component.html',
   styleUrls: ['./onboard.component.scss'],
   standalone: true,
-  imports: [IonicModule, NgFor, FormsModule],
+  imports: [
+    IonButton,
+    IonCard,
+    IonCardHeader,
+    IonCardContent,
+    IonCardTitle,
+    IonContent,
+    IonInput,
+    IonDatetimeButton,
+    IonDatetime,
+    IonModal,
+    IonToolbar,
+    IonButtons,
+    IonPicker,
+    IonPickerColumn,
+    IonPickerColumnOption,
+    NgFor,
+    FormsModule,
+  ],
 })
 export class OnboardComponent {
   fullName: string;

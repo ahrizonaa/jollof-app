@@ -4,9 +4,8 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
+  IonButton,
 } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
-import { IonicModule } from '@ionic/angular';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { UserService } from '../services/user.service';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton],
 })
 export class Tab3Page {
   constructor(protected user: UserService) {}
