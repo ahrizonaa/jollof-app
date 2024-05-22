@@ -3,62 +3,100 @@ import { BehaviorSubject } from 'rxjs';
 import { LogService } from './log.service';
 import { GoogleUser, FacebookUser, NimbelWearUser } from '../types/User';
 import { Router } from '@angular/router';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   currentUser: NimbelWearUser | null = null;
+  pendingUser: NimbelWearUser | null = null;
   logoutEmitter: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private log: LogService, private router: Router) {}
+  constructor(
+    private log: LogService,
+    private router: Router,
+    private api: ApiService
+  ) {
+    let potentialUser = localStorage.getItem('jollof-user');
+
+    if (potentialUser) {
+      potentialUser = JSON.parse(potentialUser);
+      // check days since last login:
+    }
+  }
 
   SignIn(user: GoogleUser | FacebookUser, provider: 'Google' | 'Facebook') {
-    switch (provider) {
-      case 'Google':
-        let ug = user as GoogleUser;
-        this.currentUser = {
-          email: ug.email,
-          name: ug.name,
-          imgUrl: ug.imageUrl,
-          id: ug.id,
-          GoogleUser: ug,
-          FacebookUser: null,
-        };
-        break;
-      case 'Facebook':
-        let uf = user as FacebookUser;
-        this.currentUser = {
-          email: uf.email,
-          name: uf.name,
-          imgUrl: uf.picture.url,
-          id: uf.id,
-          GoogleUser: null,
-          FacebookUser: uf,
-        };
-        break;
-      default:
-        this.log.error(`Unknown provider: ${provider}`);
-        this.currentUser = null;
-        break;
-    }
+    this.api
+      .post('finduser', { email: user.email })
+      .subscribe(async (res: any) => {
+        console.log(res);
 
-    localStorage.setItem('user', JSON.stringify(this.currentUser));
-
-    this.router.navigate(['/']);
+        if (res.userAccount == null) {
+          switch (provider) {
+            case 'Google':
+              let googleUser = user as GoogleUser;
+              this.pendingUser = {
+                email: googleUser.email,
+                name: googleUser.name,
+                imgUrl: googleUser.imageUrl,
+                id: googleUser.id,
+                GoogleUser: googleUser,
+                FacebookUser: null,
+              };
+              break;
+            case 'Facebook':
+              let facebookUser = user as FacebookUser;
+              this.pendingUser = {
+                email: facebookUser.email,
+                name: facebookUser.name,
+                imgUrl: facebookUser.picture.url,
+                id: facebookUser.id,
+                GoogleUser: null,
+                FacebookUser: facebookUser,
+              };
+              break;
+            default:
+              this.log.error(`Unknown provider: ${provider}`);
+              this.currentUser = null;
+              this.pendingUser = null;
+              break;
+          }
+          await this.router.navigate(['/onboard']);
+          return;
+        } else {
+          this.currentUser = res.userAccount;
+          await this.router.navigate(['/']);
+          return;
+        }
+      });
   }
 
   Register(profile: any) {
-    if (this.currentUser != null) {
-      this.currentUser.profile = profile;
-      localStorage.setItem('user', JSON.stringify(this.currentUser));
-      this.router.navigate(['/']);
-    }
+    let newUser = {
+      ...this.pendingUser,
+      profile: profile,
+    } as NimbelWearUser;
+
+    this.api.post('createuser', { user: newUser }).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.currentUser = newUser;
+        this.pendingUser = null;
+        this.router.navigate(['/']);
+      },
+      (err) => {
+        this.currentUser = newUser;
+        this.pendingUser = null;
+        console.log('new user request failed', err);
+        this.router.navigate(['/login']);
+      }
+    );
   }
 
   async SignOut(params?: any) {
     this.currentUser = null;
-    localStorage.removeItem('user');
+    this.pendingUser = null;
     this.logoutEmitter.next(true);
   }
 }

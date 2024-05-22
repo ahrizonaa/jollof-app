@@ -70,11 +70,17 @@ export class SigninComponent implements OnInit, AfterViewInit {
     if (cachedUser) {
       let user = JSON.parse(cachedUser) as NimbelWearUser;
 
-      if (user && user.GoogleUser) {
-        this.SignedIn(user.GoogleUser, 'Google');
-      } else if (user && user.FacebookUser) {
-        this.SignedIn(user.FacebookUser, 'Facebook');
+      if (user && user.profile) {
+        if (user.GoogleUser) {
+          this.SignedIn(user.GoogleUser, 'Google');
+        } else if (user.FacebookUser) {
+          this.SignedIn(user.FacebookUser, 'Facebook');
+        }
+      } else {
+        
       }
+
+
     }
     console.log(cachedUser);
   }
