@@ -64,25 +64,6 @@ export class SigninComponent implements OnInit, AfterViewInit {
     this.log.debug('LoginComponent.ngOnInit()');
 
     this.InitLogoutListener();
-
-    let cachedUser = localStorage.getItem('user');
-
-    if (cachedUser) {
-      let user = JSON.parse(cachedUser) as NimbelWearUser;
-
-      if (user && user.profile) {
-        if (user.GoogleUser) {
-          this.SignedIn(user.GoogleUser, 'Google');
-        } else if (user.FacebookUser) {
-          this.SignedIn(user.FacebookUser, 'Facebook');
-        }
-      } else {
-        
-      }
-
-
-    }
-    console.log(cachedUser);
   }
 
   ngAfterViewInit() {

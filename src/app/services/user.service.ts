@@ -18,12 +18,6 @@ export class UserService {
     private router: Router,
     private api: ApiService
   ) {
-    let potentialUser = localStorage.getItem('jollof-user');
-
-    if (potentialUser) {
-      potentialUser = JSON.parse(potentialUser);
-      // check days since last login:
-    }
   }
 
   SignIn(user: GoogleUser | FacebookUser, provider: 'Google' | 'Facebook') {
@@ -65,7 +59,7 @@ export class UserService {
           await this.router.navigate(['/onboard']);
           return;
         } else {
-          this.currentUser = res.userAccount;
+          this.currentUser = res.userAccount.user;
           await this.router.navigate(['/']);
           return;
         }
