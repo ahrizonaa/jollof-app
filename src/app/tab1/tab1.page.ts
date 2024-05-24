@@ -23,6 +23,5 @@ import { UserService } from '../services/user.service';
 })
 export class Tab1Page {
   constructor(protected user: UserService) {
-    console.log(this.user);
   }
 }

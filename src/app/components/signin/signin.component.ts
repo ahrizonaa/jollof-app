@@ -50,7 +50,6 @@ export class SigninComponent implements OnInit, AfterViewInit {
       });
 
       this.config.facebookAppId.subscribe(async (appId: string) => {
-        console.log(appId);
         if (appId !== null) await this.InitFacebook(appId);
       });
     }

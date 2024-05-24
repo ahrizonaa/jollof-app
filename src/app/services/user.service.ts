@@ -17,16 +17,13 @@ export class UserService {
     private log: LogService,
     private router: Router,
     private api: ApiService
-  ) {
-  }
+  ) {}
 
   SignIn(user: GoogleUser | FacebookUser, provider: 'Google' | 'Facebook') {
     this.api
-      .post('finduser', { email: user.email })
+      .post('finduser', { user, provider: provider })
       .subscribe(async (res: any) => {
-        console.log(res);
-
-        if (res.userAccount == null) {
+        if (res.user == null) {
           switch (provider) {
             case 'Google':
               let googleUser = user as GoogleUser;
@@ -59,7 +56,7 @@ export class UserService {
           await this.router.navigate(['/onboard']);
           return;
         } else {
-          this.currentUser = res.userAccount.user;
+          this.currentUser = res.user;
           await this.router.navigate(['/']);
           return;
         }
