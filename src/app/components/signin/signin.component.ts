@@ -9,22 +9,21 @@ import {
   GoogleAuth,
   InitOptions,
 } from '@codetrix-studio/capacitor-google-auth';
-import { Observable } from 'rxjs';
 import {
   FacebookLogin,
   FacebookLoginResponse,
 } from '@capacitor-community/facebook-login';
-import { GoogleUser, FacebookUser, NimbelWearUser } from '../../types/User';
+import { GoogleUser, FacebookUser } from '../../types/User';
 
 import { IonContent, IonButton, IonIcon } from '@ionic/angular/standalone';
 
-declare const Typewriter: any;
 declare const FB: any;
 
 const FACEBOOK_PERMISSIONS = ['email', 'public_profile'];
 
 import { addIcons } from 'ionicons';
 import { logoFacebook, logoGoogle } from 'ionicons/icons';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-login',
@@ -37,46 +36,28 @@ export class SigninComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     protected user: UserService,
-    private zone: NgZone,
-    private api: ApiService,
-    private log: LogService
+    private log: LogService,
+    private config: ConfigService
   ) {
     addIcons({
       logoFacebook,
       logoGoogle,
     });
+
     if (!isPlatform('capacitor')) {
-      this.GetClientId().subscribe(
-        (res: any) => {
-          this.InitGoogleAuth(res.client_id);
-        },
-        (err: any) => {
-          this.log.error('Oops! Something went wrong on our end', err);
-        }
-      );
-      (async () => {
-        await this.InitFB();
-      })();
+      this.config.googleClientId.subscribe((clientId: string) => {
+        if (clientId !== null) this.InitGoogle(clientId);
+      });
+
+      this.config.facebookAppId.subscribe(async (appId: string) => {
+        if (appId !== null) await this.InitFacebook(appId);
+      });
     }
   }
 
   ngOnInit() {
     this.log.debug('LoginComponent.ngOnInit()');
-
     this.InitLogoutListener();
-
-    let cachedUser = localStorage.getItem('user');
-
-    if (cachedUser) {
-      let user = JSON.parse(cachedUser) as NimbelWearUser;
-
-      if (user && user.GoogleUser) {
-        this.SignedIn(user.GoogleUser, 'Google');
-      } else if (user && user.FacebookUser) {
-        this.SignedIn(user.FacebookUser, 'Facebook');
-      }
-    }
-    console.log(cachedUser);
   }
 
   ngAfterViewInit() {
@@ -90,7 +71,7 @@ export class SigninComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async SignInFB() {
+  async SignInFacebook() {
     const result: FacebookLoginResponse = await FacebookLogin.login({
       permissions: FACEBOOK_PERMISSIONS,
     });
@@ -118,25 +99,19 @@ export class SigninComponent implements OnInit, AfterViewInit {
     }
   }
 
-  GetClientId(): Observable<any> {
-    this.log.debug('LoginComponent.GetClientId()');
-
-    return this.api.get('google/appsettings');
-  }
-
-  InitGoogleAuth(client_id: string) {
+  InitGoogle(clientId: string) {
     this.log.debug('LoginComponent.InitGoogleAuth()');
 
     let options: InitOptions = {
-      clientId: client_id,
+      clientId: clientId,
       scopes: ['profile'],
       grantOfflineAccess: true,
     };
     GoogleAuth.initialize(options);
   }
 
-  async InitFB() {
-    await FacebookLogin.initialize({ appId: '421946357352421' });
+  async InitFacebook(appId: string) {
+    await FacebookLogin.initialize({ appId });
   }
 
   InitLogoutListener() {
