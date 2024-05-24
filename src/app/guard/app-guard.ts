@@ -18,7 +18,8 @@ const AppGuard: CanActivateFn = (
   | boolean
   | UrlTree => {
   const user = inject(UserService);
-  // 👇 Redirects to another route
+  console.log(user);
+  
   if (!user.currentUser || !user.currentUser.email) {
     return inject(Router).createUrlTree(['/', 'login']);
   } else if (user.currentUser && !user.currentUser.profile) {

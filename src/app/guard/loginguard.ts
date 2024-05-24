@@ -20,7 +20,7 @@ const LoginGuard: CanActivateFn = (
   const user = inject(UserService);
   // 👇 Redirects to another route
   if (user.currentUser && user.currentUser.email) {
-    return inject(Router).createUrlTree(['/', 'live']);
+    return inject(Router).createUrlTree(['/']);
   }
 
   return true;
