@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-title>Settings</ion-title>
       <ion-buttons *ngIf="pendingChanges" slot="end">
-        <ion-button> Save </ion-button>
+        <ion-button (click)="saveProfile()"> Save </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
@@ -21,8 +21,60 @@
     <ion-button size="small" fill="clear">Edit</ion-button>
   </div>
 
-  <app-profile
-    [value]="pendingProfile"
-    (profileChanged)="profileChanged($event)"
-  ></app-profile>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Profile</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <app-profile
+        [value]="pendingProfile"
+        (profileChanged)="profileChanged($event)"
+      ></app-profile>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Socials</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list [inset]="true">
+        <ion-item *ngIf="user.currentUser?.GoogleUser">
+          <ion-icon slot="start" name="logo-google"></ion-icon>
+          <ion-label>Google</ion-label>
+          <ion-button
+            *ngIf="user.currentUser?.FacebookUser !== null"
+            (click)="removeGoogle()"
+            fill="clear"
+            slot="end"
+          >
+            <ion-icon
+              color="danger"
+              slot="icon-only"
+              name="remove-circle-outline"
+            ></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item *ngIf="user.currentUser?.FacebookUser">
+          <ion-icon slot="start" name="logo-facebook"></ion-icon>
+          <ion-label>Facebook</ion-label>
+          <ion-button
+            *ngIf="user.currentUser?.GoogleUser !== null"
+            (click)="removeFacebook()"
+            fill="clear"
+            slot="end"
+          >
+            <ion-icon
+              color="danger"
+              slot="icon-only"
+              name="remove-circle-outline"
+            ></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <div style="padding: 0 15px 15px 15px">
+    <ion-button expand="block" (click)="logout()">Logout</ion-button>
+  </div>
 </ion-content>

@@ -86,14 +86,30 @@ export class UserService {
   }
 
   Update(profile: UserProfile) {
-    this.currentUser!.profile = profile
+    this.currentUser!.profile = profile;
 
-    return this.api.post('updateuser', { profile: profile})
+    return this.api.post('updateprofile', { user: this.currentUser });
   }
 
   async SignOut(params?: any) {
     this.currentUser = null;
     this.pendingUser = null;
     this.logoutEmitter.next(true);
+  }
+
+  UnlinkGoogle() {
+    this.api
+      .post('unlinkgoogle', { user: this.currentUser })
+      .subscribe((res) => {
+        this.currentUser!.GoogleUser = null as any;
+      });
+  }
+
+  UnlinkFacebook() {
+    this.api
+      .post('unlinkfacebook', { user: this.currentUser })
+      .subscribe((res) => {
+        this.currentUser!.FacebookUser = null as any;
+      });
   }
 }

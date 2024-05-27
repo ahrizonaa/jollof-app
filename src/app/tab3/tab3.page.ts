@@ -12,10 +12,22 @@ import {
   IonButtons,
   IonButton,
   IonAvatar,
+  IonCard,
+  IonCardContent,
+  IonCardTitle,
+  IonCardHeader,
+  IonInput,
+  IonItem,
+  IonCheckbox,
+  IonList,
+  IonIcon,
+  IonLabel,
 } from '@ionic/angular/standalone';
 
 import { dequal } from 'dequal';
 import { NgIf } from '@angular/common';
+import { addIcons } from 'ionicons';
+import { logoFacebook, logoGoogle, removeCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tab3',
@@ -23,6 +35,13 @@ import { NgIf } from '@angular/common';
   styleUrls: ['tab3.page.scss'],
   standalone: true,
   imports: [
+    IonLabel,
+    IonIcon,
+    IonCheckbox,
+    IonItem,
+    IonInput,
+    IonCardHeader,
+    IonCardTitle,
     IonContent,
     IonHeader,
     IonToolbar,
@@ -30,6 +49,9 @@ import { NgIf } from '@angular/common';
     IonButtons,
     IonButton,
     IonAvatar,
+    IonCard,
+    IonList,
+    IonCardContent,
     ProfileComponent,
     NgIf,
   ],
@@ -39,6 +61,11 @@ export class Tab3Page {
   pendingProfile: UserProfile;
   constructor(protected user: UserService) {
     this.pendingProfile = { ...this.user.currentUser!.profile } as any;
+    addIcons({
+      logoFacebook,
+      logoGoogle,
+      removeCircleOutline,
+    });
   }
 
   profileChanged(profile: UserProfile) {
@@ -48,11 +75,24 @@ export class Tab3Page {
   saveProfile() {
     this.user.Update(this.pendingProfile).subscribe(
       (res) => {
+        console.log(res);
         this.pendingChanges = false;
       },
       (err) => {
         this.pendingChanges = false;
       }
     );
+  }
+
+  logout() {
+    this.user.SignOut();
+  }
+
+  removeGoogle() {
+    this.user.UnlinkGoogle();
+  }
+
+  removeFacebook() {
+    this.user.UnlinkFacebook();
   }
 }
