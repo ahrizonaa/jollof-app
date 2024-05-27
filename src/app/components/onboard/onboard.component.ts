@@ -6,8 +6,7 @@ import {
   IonCardHeader,
   IonCardContent,
   IonCardTitle,
-  IonContent,
-} from '@ionic/angular/standalone';
+  IonContent, IonText } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { UserProfile } from 'src/app/types/UserProfile';
@@ -17,7 +16,7 @@ import { UserProfile } from 'src/app/types/UserProfile';
   templateUrl: './onboard.component.html',
   styleUrls: ['./onboard.component.scss'],
   standalone: true,
-  imports: [
+  imports: [IonText, 
     IonButton,
     IonCard,
     IonCardHeader,

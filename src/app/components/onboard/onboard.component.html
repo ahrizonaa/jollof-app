@@ -2,26 +2,19 @@
   <div class="jollof-logo-container">
     <img class="jollof-logo" src="../../../assets/jollof.jpg" />
   </div>
-  <ion-card class="onboard-card">
-    <ion-card-header>
-      <ion-card-title>Sign Up</ion-card-title>
-    </ion-card-header>
 
-    <ion-card-content>
-      <div class="signup-container">
-        <app-profile (profileChanged)="profileChanged($event)"></app-profile>
-      </div>
-
-      <div class="final-row">
-        <ion-button
-          (click)="proceedClicked()"
-          [disabled]="profile === null"
-          fill="clear"
-          >Proceed</ion-button
-        >
-      </div>
-    </ion-card-content>
-  </ion-card>
+  <div class="signup-container">
+    <ion-text class="ion-margin heading-text">Sign Up</ion-text>
+    <app-profile (profileChanged)="profileChanged($event)"></app-profile>
+    <div class="final-row">
+      <ion-button
+        (click)="proceedClicked()"
+        [disabled]="profile === null"
+        fill="clear"
+        >Proceed</ion-button
+      >
+    </div>
+  </div>
   <ion-button
     (click)="switchAccount()"
     class="switch-account-button"

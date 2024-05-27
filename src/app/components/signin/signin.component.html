@@ -7,6 +7,7 @@
     <ion-button
       expand="full"
       shape="round"
+      color="light"
       *ngIf="!user.currentUser || !user.currentUser.email"
       style="width: 100%"
       (click)="SignInGoogle()"
@@ -17,6 +18,7 @@
     <ion-button
       expand="full"
       shape="round"
+      color="light"
       *ngIf="!user.currentUser || !user.currentUser.email"
       style="width: 100%"
       (click)="SignInFacebook()"

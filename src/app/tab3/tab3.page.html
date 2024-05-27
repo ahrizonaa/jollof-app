@@ -21,60 +21,54 @@
     <ion-button size="small" fill="clear">Edit</ion-button>
   </div>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Profile</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <app-profile
-        [value]="pendingProfile"
-        (profileChanged)="profileChanged($event)"
-      ></app-profile>
-    </ion-card-content>
-  </ion-card>
+  <div>
+    <ion-text class="ion-margin heading-text">Profile</ion-text>
+    <app-profile
+      [value]="pendingProfile"
+      (profileChanged)="profileChanged($event)"
+    ></app-profile>
+  </div>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Socials</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list [inset]="true">
-        <ion-item color="light" *ngIf="user.currentUser?.GoogleUser">
-          <ion-icon slot="start" name="logo-google"></ion-icon>
-          <ion-label>Google</ion-label>
-          <ion-button
-            *ngIf="user.currentUser?.FacebookUser !== null"
-            (click)="removeGoogle()"
-            fill="clear"
-            slot="end"
-          >
-            <ion-icon
-              color="danger"
-              slot="icon-only"
-              name="remove-circle-outline"
-            ></ion-icon>
-          </ion-button>
-        </ion-item>
-        <ion-item color="light" *ngIf="user.currentUser?.FacebookUser">
-          <ion-icon slot="start" name="logo-facebook"></ion-icon>
-          <ion-label>Facebook</ion-label>
-          <ion-button
-            *ngIf="user.currentUser?.GoogleUser !== null"
-            (click)="removeFacebook()"
-            fill="clear"
-            slot="end"
-          >
-            <ion-icon
-              color="danger"
-              slot="icon-only"
-              name="remove-circle-outline"
-            ></ion-icon>
-          </ion-button>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <div>
+    <ion-text class="ion-margin heading-text">Socials</ion-text>
+    <ion-list [inset]="true">
+      <ion-item color="light" *ngIf="user.currentUser?.GoogleUser">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        <ion-label>Google</ion-label>
+        <ion-button
+          *ngIf="user.currentUser?.FacebookUser !== null"
+          (click)="removeGoogle()"
+          fill="clear"
+          slot="end"
+        >
+          <ion-icon
+            color="danger"
+            slot="icon-only"
+            name="remove-circle-outline"
+          ></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-item color="light" *ngIf="user.currentUser?.FacebookUser">
+        <ion-icon slot="start" name="logo-facebook"></ion-icon>
+        <ion-label>Facebook</ion-label>
+        <ion-button
+          *ngIf="user.currentUser?.GoogleUser !== null"
+          (click)="removeFacebook()"
+          fill="clear"
+          slot="end"
+        >
+          <ion-icon
+            color="danger"
+            slot="icon-only"
+            name="remove-circle-outline"
+          ></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
   <div style="padding: 0 15px 15px 15px">
-    <ion-button expand="block" (click)="logout()">Logout</ion-button>
+    <ion-button color="dark" expand="block" (click)="logout()"
+      >Logout</ion-button
+    >
   </div>
 </ion-content>

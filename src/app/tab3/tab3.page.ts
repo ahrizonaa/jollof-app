@@ -22,6 +22,7 @@ import {
   IonList,
   IonIcon,
   IonLabel,
+  IonText,
 } from '@ionic/angular/standalone';
 
 import { dequal } from 'dequal';
@@ -51,6 +52,7 @@ import { logoFacebook, logoGoogle, removeCircleOutline } from 'ionicons/icons';
     IonAvatar,
     IonCard,
     IonList,
+    IonText,
     IonCardContent,
     ProfileComponent,
     NgIf,
