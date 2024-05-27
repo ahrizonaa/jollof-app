@@ -35,15 +35,6 @@
   text-align: right;
 }
 
-ion-modal#country-modal {
-  --height: auto;
-  align-items: end;
-}
-
-#country-modal ion-picker {
-  margin-bottom: var(--ion-safe-area-bottom);
-}
-
 .jollof-logo {
   transform: scale(0.5) translateY(-200px);
 }

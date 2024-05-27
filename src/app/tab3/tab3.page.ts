@@ -1,43 +1,58 @@
 import { Component } from '@angular/core';
+
+import { UserService } from '../services/user.service';
+
+import { ProfileComponent } from '../components/profile/profile.component';
+import { UserProfile } from '../types/UserProfile';
 import {
+  IonContent,
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonContent,
+  IonButtons,
   IonButton,
-  IonIcon,
-  IonList,
-  IonItem,
-  IonLabel,
+  IonAvatar,
 } from '@ionic/angular/standalone';
-import { UserService } from '../services/user.service';
 
-import { addIcons } from 'ionicons';
-import { airplane, wifi, bluetooth, call } from 'ionicons/icons';
+import { dequal } from 'dequal';
+import { NgIf } from '@angular/common';
+
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
   standalone: true,
   imports: [
-    IonIcon,
+    IonContent,
     IonHeader,
     IonToolbar,
     IonTitle,
-    IonContent,
+    IonButtons,
     IonButton,
-    IonList,
-    IonItem,
-    IonLabel,
+    IonAvatar,
+    ProfileComponent,
+    NgIf,
   ],
 })
 export class Tab3Page {
+  pendingChanges: boolean = false;
+  pendingProfile: UserProfile;
   constructor(protected user: UserService) {
-    addIcons({
-      airplane,
-      wifi,
-      bluetooth,
-      call,
-    });
+    this.pendingProfile = { ...this.user.currentUser!.profile } as any;
+  }
+
+  profileChanged(profile: UserProfile) {
+    this.pendingChanges = !dequal(profile, this.user.currentUser?.profile);
+  }
+
+  saveProfile() {
+    this.user.Update(this.pendingProfile).subscribe(
+      (res) => {
+        this.pendingChanges = false;
+      },
+      (err) => {
+        this.pendingChanges = false;
+      }
+    );
   }
 }

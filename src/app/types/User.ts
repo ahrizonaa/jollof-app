@@ -1,6 +1,7 @@
-import { User } from '@codetrix-studio/capacitor-google-auth';
+import { User as GoogleUserType } from '@codetrix-studio/capacitor-google-auth';
+import { UserProfile } from './UserProfile';
 
-export type GoogleUser = User;
+export type GoogleUser = GoogleUserType;
 
 export type FacebookUser = {
   email: string;
@@ -14,12 +15,12 @@ export type FacebookUser = {
   };
 };
 
-export type NimbelWearUser = {
+export type User = {
   email: string;
   name: string;
-  imgUrl: string;
+  imgUrl?: string;
   id: string;
   GoogleUser?: User | null;
   FacebookUser?: FacebookUser | null;
-  profile?: any;
+  profile?: UserProfile;
 };

@@ -4,49 +4,18 @@
   </div>
   <ion-card class="onboard-card">
     <ion-card-header>
-      <ion-card-title>Register</ion-card-title>
+      <ion-card-title>Sign Up</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <div class="row">
-        <div>Full Name</div>
-        <ion-input
-          [(ngModel)]="fullName"
-          (ngModelChange)="nameChanged($event)"
-          class="text-input"
-          placeholder="First Last"
-        >
-        </ion-input>
-      </div>
-
-      <div class="row">
-        <div>Phone Number</div>
-        <ion-input
-          [(ngModel)]="phoneNumber"
-          (ngModelChange)="phoneNumberChanged($event)"
-          class="text-input"
-          type="tel"
-          placeholder="000-000-0000"
-        >
-        </ion-input>
-      </div>
-
-      <div class="row">
-        <div>Birthdate</div>
-        <ion-datetime-button datetime="datetime"></ion-datetime-button>
-      </div>
-
-      <div class="row">
-        <div>Country</div>
-        <ion-button fill="clear" id="country-modal-trigger">{{
-          country ? country : "Select a Country"
-        }}</ion-button>
+      <div class="signup-container">
+        <app-profile (profileChanged)="profileChanged($event)"></app-profile>
       </div>
 
       <div class="final-row">
         <ion-button
           (click)="proceedClicked()"
-          [disabled]="!formIsValid"
+          [disabled]="profile === null"
           fill="clear"
           >Proceed</ion-button
         >
@@ -60,56 +29,3 @@
     >Switch account</ion-button
   >
 </ion-content>
-
-<ion-modal [keepContentsMounted]="true">
-  <ng-template>
-    <ion-datetime
-      [showDefaultButtons]="true"
-      id="datetime"
-      presentation="date"
-      (ionChange)="birthdateChanged($event)"
-      [value]="birthdate"
-      [formatOptions]="{
-        date: {
-          weekday: 'short',
-          month: 'long',
-          day: '2-digit',
-        }
-      }"
-    ></ion-datetime>
-  </ng-template>
-</ion-modal>
-
-<ion-modal
-  id="country-modal"
-  #modal
-  trigger="country-modal-trigger"
-  (didDismiss)="onDidDismiss($event)"
->
-  <ng-template>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button (click)="modal.dismiss(null, 'cancel')">Cancel</ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-button (click)="modal.dismiss(country, 'confirm')"
-          >Done</ion-button
-        >
-      </ion-buttons>
-    </ion-toolbar>
-    <ion-picker>
-      <ion-picker-column [value]="country" (ionChange)="countryChanged($event)">
-        <ion-picker-column-option value="Liberia"
-          >Liberia</ion-picker-column-option
-        >
-        <ion-picker-column-option value="Nigeria"
-          >Nigeria</ion-picker-column-option
-        >
-        <ion-picker-column-option value="Sierra Leone"
-          >Sierra Leone</ion-picker-column-option
-        >
-        <ion-picker-column-option value="Ghana">Ghana</ion-picker-column-option>
-      </ion-picker-column>
-    </ion-picker>
-  </ng-template>
-</ion-modal>

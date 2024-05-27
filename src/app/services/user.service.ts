@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LogService } from './log.service';
-import { GoogleUser, FacebookUser, NimbelWearUser } from '../types/User';
+import { GoogleUser, FacebookUser, User } from '../types/User';
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
+import { UserProfile } from '../types/UserProfile';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  currentUser: NimbelWearUser | null = null;
-  pendingUser: NimbelWearUser | null = null;
+  currentUser: User | null = null;
+  pendingUser: User | null = null;
   logoutEmitter: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
@@ -23,7 +24,7 @@ export class UserService {
     this.api
       .post('finduser', { user, provider: provider })
       .subscribe(async (res: any) => {
-        if (res.user == null) {
+        if (!res || res.user == null) {
           switch (provider) {
             case 'Google':
               let googleUser = user as GoogleUser;
@@ -63,15 +64,14 @@ export class UserService {
       });
   }
 
-  Register(profile: any) {
+  SignUp(profile: UserProfile) {
     let newUser = {
       ...this.pendingUser,
       profile: profile,
-    } as NimbelWearUser;
+    } as User;
 
-    this.api.post('createuser', { user: newUser }).subscribe(
-      (res: any) => {
-        console.log(res);
+    this.api.post('signup', { user: newUser }).subscribe(
+      (res: { acknowledged: boolean; insertedId: string } | unknown) => {
         this.currentUser = newUser;
         this.pendingUser = null;
         this.router.navigate(['/']);
@@ -83,6 +83,12 @@ export class UserService {
         this.router.navigate(['/login']);
       }
     );
+  }
+
+  Update(profile: UserProfile) {
+    this.currentUser!.profile = profile
+
+    return this.api.post('updateuser', { profile: profile})
   }
 
   async SignOut(params?: any) {

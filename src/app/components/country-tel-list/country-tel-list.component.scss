@@ -1,0 +1,12 @@
+:host {
+  display: contents;
+}
+
+ion-popover::part(content) {
+  max-height: 40vh !important;
+}
+
+#flag,
+#country-selector {
+  font-family: "Twemoji Country Flags";
+}

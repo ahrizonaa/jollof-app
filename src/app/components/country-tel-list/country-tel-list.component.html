@@ -1,0 +1,48 @@
+<ion-button id="country-selector" slot="start" justify="start" fill="clear">
+  <ion-text
+    style="font-size: 18px"
+    [innerHTML]="
+      user.currentUser?.profile?.phoneNumberCountry?.unicode || selectedCountry.unicode
+        | safehtml
+    "
+  ></ion-text>
+  <ion-icon name="chevron-expand-outline" slot="end"></ion-icon>
+</ion-button>
+<ion-input
+  [ngModel]="user.currentUser?.profile?.phoneNumber || phoneNumber"
+  (ngModelChange)="phoneNumberChanged($event)"
+  type="tel"
+  placeholder="888-888-8888"
+></ion-input>
+
+<ion-popover
+  [dismissOnSelect]="true"
+  trigger="country-selector"
+  side="bottom"
+  alignment="start"
+>
+  <ng-template>
+    <ion-searchbar
+      debounce="200"
+      [(ngModel)]="countrySearchQuery"
+      (ngModelChange)="countrySearched($event)"
+      (ionClear)="countrySearchCleared()"
+    ></ion-searchbar>
+    <ion-list style="overflow-y: auto; max-height: 300px">
+      <ion-item
+        detail="false"
+        button
+        (click)="countrySelected(country)"
+        *ngFor="let country of countrySearchResults"
+      >
+        <ion-text
+          slot="start"
+          id="flag"
+          [innerHTML]="country.unicode | safehtml"
+        ></ion-text>
+        <ion-label>{{ country.name }}</ion-label>
+        <ion-note slot="end">{{ country.dialCode }}</ion-note>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</ion-popover>

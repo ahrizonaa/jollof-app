@@ -1,0 +1,84 @@
+<ion-list [inset]="true">
+  <ion-item>
+    <ion-input
+      [(ngModel)]="profile.firstName"
+      (ngModelChange)="firstNameChanged($event)"
+      label="First Name"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input
+      [(ngModel)]="profile.lastName"
+      (ngModelChange)="lastNameChanged($event)"
+      label="Last Name"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <app-country-tel-list
+      (countryChanged)="phoneNumberCountryChanged($event)"
+      (phoneNumberChangedCallback)="phoneNumberChanged($event)"
+    ></app-country-tel-list>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Birthdate</ion-label>
+    <ion-datetime-button datetime="datetime"></ion-datetime-button>
+  </ion-item>
+
+  <ion-item>
+    <ion-button fill="clear" id="country-modal-trigger">{{
+      profile.country.countryNameEn
+    }}</ion-button>
+  </ion-item>
+</ion-list>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime
+      [showDefaultButtons]="true"
+      id="datetime"
+      presentation="date"
+      (ionChange)="birthdateChanged($event)"
+      [value]="profile.birthdate"
+      [formatOptions]="{
+        date: {
+          weekday: 'short',
+          month: 'long',
+          day: '2-digit',
+        }
+      }"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+<ion-modal
+  id="country-modal"
+  #modal
+  trigger="country-modal-trigger"
+  (didDismiss)="onDidDismiss($event)"
+>
+  <ng-template>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="modal.dismiss('cancel')">Cancel</ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="modal.dismiss('confirm')">Done</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-picker>
+      <ion-picker-column
+        [value]="profile.country.countryNameEn"
+        (ionChange)="countryChanged($event)"
+      >
+        <ion-picker-column-option
+          *ngFor="let country of countryDetailList"
+          [value]="country"
+          >{{ country.countryNameEn }}</ion-picker-column-option
+        >
+        <ion-picker-column-option value="Ghana">Ghana</ion-picker-column-option>
+      </ion-picker-column>
+    </ion-picker>
+  </ng-template>
+</ion-modal>
