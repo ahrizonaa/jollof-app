@@ -1,15 +1,12 @@
 <ion-button id="country-selector" slot="start" justify="start" fill="clear">
   <ion-text
     style="font-size: 18px"
-    [innerHTML]="
-      user.currentUser?.profile?.phoneNumberCountry?.unicode || selectedCountry.unicode
-        | safehtml
-    "
+    [innerHTML]="countryPhone.unicode | safehtml"
   ></ion-text>
   <ion-icon name="chevron-expand-outline" slot="end"></ion-icon>
 </ion-button>
 <ion-input
-  [ngModel]="user.currentUser?.profile?.phoneNumber || phoneNumber"
+  [ngModel]="phoneNumber"
   (ngModelChange)="phoneNumberChanged($event)"
   type="tel"
   placeholder="888-888-8888"
@@ -24,9 +21,11 @@
   <ng-template>
     <ion-searchbar
       debounce="200"
+      (click)="searchBarClicked($event)"
       [(ngModel)]="countrySearchQuery"
       (ngModelChange)="countrySearched($event)"
       (ionClear)="countrySearchCleared()"
+      showClearButton="true"
     ></ion-searchbar>
     <ion-list style="overflow-y: auto; max-height: 300px">
       <ion-item

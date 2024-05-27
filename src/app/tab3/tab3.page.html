@@ -39,7 +39,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list [inset]="true">
-        <ion-item *ngIf="user.currentUser?.GoogleUser">
+        <ion-item color="light" *ngIf="user.currentUser?.GoogleUser">
           <ion-icon slot="start" name="logo-google"></ion-icon>
           <ion-label>Google</ion-label>
           <ion-button
@@ -55,7 +55,7 @@
             ></ion-icon>
           </ion-button>
         </ion-item>
-        <ion-item *ngIf="user.currentUser?.FacebookUser">
+        <ion-item color="light" *ngIf="user.currentUser?.FacebookUser">
           <ion-icon slot="start" name="logo-facebook"></ion-icon>
           <ion-label>Facebook</ion-label>
           <ion-button

@@ -64,7 +64,7 @@ export class CountryTelListComponent implements OnInit {
   countryPhoneList: CountryPhone[] = CountryPhoneList;
   countrySearchResults: CountryPhone[] = [];
   countrySearchQuery: string = '';
-  selectedCountry: CountryPhone;
+  countryPhone: CountryPhone;
   phoneNumber: string = '';
   constructor(protected user: UserService) {
     addIcons({
@@ -75,12 +75,19 @@ export class CountryTelListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedCountry = DefaultCountryPhone;
-    this.countryChanged.emit(this.selectedCountry);
+    this.countryPhone =
+      this.user.currentUser?.profile?.phoneNumberCountry || DefaultCountryPhone;
+    this.countryChanged.emit(this.countryPhone);
+
+    this.phoneNumber = this.user.currentUser?.profile?.phoneNumber || '';
+  }
+
+  searchBarClicked(e: Event) {
+    e.stopPropagation();
   }
 
   countrySelected(country: CountryPhone) {
-    this.selectedCountry = country;
+    this.countryPhone = country;
     this.countryChanged.emit(country);
   }
 
@@ -94,13 +101,17 @@ export class CountryTelListComponent implements OnInit {
     } else if (searchQuery.length <= 2) {
       this.countrySearchResults = this.countryPhoneList.filter(
         (country: CountryPhone) => {
-          return country.name.startsWith(searchQuery);
+          return country.name
+            .toLowerCase()
+            .startsWith(searchQuery.toLowerCase());
         }
       );
     } else {
       this.countrySearchResults = this.countryPhoneList.filter(
         (country: CountryPhone) => {
-          return country.name.indexOf(searchQuery) != -1;
+          return (
+            country.name.toLowerCase().indexOf(searchQuery.toLowerCase()) != -1
+          );
         }
       );
     }
