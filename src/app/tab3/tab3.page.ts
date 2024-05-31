@@ -86,6 +86,29 @@ export class Tab3Page {
     );
   }
 
+  uploadPhotoClicked(form: any, upload: any) {
+    upload.click();
+  }
+
+  fileChanged(e: any) {
+    console.log(e);
+    const image = e.target.files[0];
+    let formData = new FormData();
+
+    formData.append('image', image, image.name);
+
+    console.log(formData);
+
+    this.user.UploadPhoto(formData).subscribe(
+      (res: any) => {
+        console.log('success', res);
+      },
+      (err: any) => {
+        console.log('error', err);
+      }
+    );
+  }
+
   logout() {
     this.user.SignOut();
   }

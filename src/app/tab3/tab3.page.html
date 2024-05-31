@@ -9,6 +9,16 @@
   <br />
   <br />
 
+  <form
+    #formEl
+    style="display: none"
+    action="http://localhost:3000/upload"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <input (change)="fileChanged($event)" #fileUpload type="file" name="image" accept="image/*" />
+  </form>
+
   <div class="pfp-wrapper">
     <ion-avatar slot="start">
       <img
@@ -16,7 +26,12 @@
         src="https://ionicframework.com/docs/img/demos/avatar.svg"
       />
     </ion-avatar>
-    <ion-button size="small" fill="clear">Edit</ion-button>
+    <ion-button
+      (click)="uploadPhotoClicked(formEl, fileUpload)"
+      size="small"
+      fill="clear"
+      >Edit</ion-button
+    >
   </div>
 
   <div>

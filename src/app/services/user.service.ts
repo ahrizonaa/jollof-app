@@ -91,6 +91,15 @@ export class UserService {
     return this.api.post('updateprofile', { user: this.currentUser });
   }
 
+  UploadPhoto(formData: FormData) {
+    // const headers = new Headers({ enctype: 'multipart/form-data' });
+    // const options = new RequestOptions({ headers: headers });
+    return this.api.post('uploadphoto', {
+      user: this.currentUser,
+      formData,
+    });
+  }
+
   async SignOut(params?: any) {
     this.currentUser = null;
     this.pendingUser = null;
