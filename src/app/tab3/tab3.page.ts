@@ -90,18 +90,20 @@ export class Tab3Page {
     upload.click();
   }
 
-  fileChanged(e: any) {
-    console.log(e);
+  async fileChanged(e: any) {
     const image = e.target.files[0];
     let formData = new FormData();
 
     formData.append('image', image, image.name);
-
-    console.log(formData);
+    formData.append('id', this.user.currentUser!.id);
+    formData.append('email', this.user.currentUser!.email);
 
     this.user.UploadPhoto(formData).subscribe(
       (res: any) => {
-        console.log('success', res);
+        if (res && res.profilePhotoUrl) {
+          this.user.currentUser!.profilePhotoUrl =
+            res.profilePhotoUrl + '?t=' + new Date().getTime();
+        }
       },
       (err: any) => {
         console.log('error', err);

@@ -23,4 +23,5 @@ export type User = {
   GoogleUser?: User | null;
   FacebookUser?: FacebookUser | null;
   profile?: UserProfile;
+  profilePhotoUrl?: string;
 };

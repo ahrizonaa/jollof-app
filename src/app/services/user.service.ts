@@ -92,12 +92,7 @@ export class UserService {
   }
 
   UploadPhoto(formData: FormData) {
-    // const headers = new Headers({ enctype: 'multipart/form-data' });
-    // const options = new RequestOptions({ headers: headers });
-    return this.api.post('uploadphoto', {
-      user: this.currentUser,
-      formData,
-    });
+    return this.api.post('uploadphoto', formData);
   }
 
   async SignOut(params?: any) {
