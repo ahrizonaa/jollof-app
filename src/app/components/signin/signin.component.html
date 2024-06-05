@@ -3,32 +3,10 @@
     <img class="jollof-logo" src="../../../assets/jollof.jpg" />
   </div>
 
-  <div class="signin-container">
-    <ion-button
-      expand="full"
-      shape="round"
-      color="light"
-      *ngIf="!user.currentUser || !user.currentUser.email"
-      style="width: 100%"
-      (click)="SignInGoogle()"
-    >
-      <ion-icon name="logo-google" slot="start"></ion-icon>&nbsp; Continue With
-      Google
-    </ion-button>
-    <ion-button
-      expand="full"
-      shape="round"
-      color="light"
-      *ngIf="!user.currentUser || !user.currentUser.email"
-      style="width: 100%"
-      (click)="SignInFacebook()"
-    >
-      <ion-icon
-        style="color: #4267b2"
-        slot="start"
-        name="logo-facebook"
-      ></ion-icon
-      >&nbsp; Continue With Facebook
-    </ion-button>
-  </div>
+  <ngx-ionic-social-login
+    [googleClientKey]="googleClientKey"
+    [facebookClientKey]="facebookClientKey"
+    (googleUser)="googleUserReceived($event)"
+    (facebookUser)="facebookUserReceived($event)"
+  ></ngx-ionic-social-login>
 </ion-content>

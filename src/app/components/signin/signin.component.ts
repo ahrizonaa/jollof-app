@@ -25,14 +25,19 @@ import { addIcons } from 'ionicons';
 import { logoFacebook, logoGoogle } from 'ionicons/icons';
 import { ConfigService } from 'src/app/services/config.service';
 
+import { IonicSocialLoginComponent } from 'ionic-social-login';
+
 @Component({
   selector: 'app-login',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
   standalone: true,
-  imports: [IonContent, IonButton, IonIcon, NgIf],
+  imports: [IonContent, IonButton, IonIcon, NgIf, IonicSocialLoginComponent],
 })
 export class SigninComponent implements OnInit, AfterViewInit {
+  googleClientKey: string = '';
+  facebookClientKey: string = '';
+
   constructor(
     private router: Router,
     protected user: UserService,
@@ -46,13 +51,21 @@ export class SigninComponent implements OnInit, AfterViewInit {
 
     if (!isPlatform('capacitor')) {
       this.config.googleClientId.subscribe((clientId: string) => {
-        if (clientId !== null) this.InitGoogle(clientId);
-      });
+        this.googleClientKey = clientId;
 
-      this.config.facebookAppId.subscribe(async (appId: string) => {
-        if (appId !== null) await this.InitFacebook(appId);
+        this.config.facebookAppId.subscribe(async (appId: string) => {
+          this.facebookClientKey = appId;
+        });
       });
     }
+  }
+
+  googleUserReceived(user: GoogleUser) {
+    this.SignedIn(user, 'Google');
+  }
+
+  facebookUserReceived(user: FacebookUser) {
+    this.SignedIn(user, 'Facebook');
   }
 
   ngOnInit() {
