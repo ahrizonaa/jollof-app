@@ -19,15 +19,14 @@ import { IonContent, IonButton, IonIcon } from '@ionic/angular/standalone';
 declare const FB: any;
 
 import { ConfigService } from 'src/app/services/config.service';
-
-import { IonicSocialLoginComponent } from 'ionic-social-login';
+import { AngularIonicSocialLogin } from 'angular-ionic-social-login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
   standalone: true,
-  imports: [IonContent, IonButton, IonIcon, NgIf, IonicSocialLoginComponent],
+  imports: [IonContent, IonButton, IonIcon, NgIf, AngularIonicSocialLogin],
 })
 export class SigninComponent implements OnInit {
   googleClientKey: string = '';
