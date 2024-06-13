@@ -8,8 +8,7 @@ import { api } from '../utility/Api';
   providedIn: 'root',
 })
 export class ApiService {
-  log!: LogService;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private log: LogService) {}
 
   get(path: string) {
     return this.http.get(`${api.url}/${path}`).pipe(catchError(this.httpError));
