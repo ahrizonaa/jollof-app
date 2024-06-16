@@ -116,10 +116,10 @@ export class Tab3Page {
   }
 
   removeGoogle() {
-    this.user.UnlinkGoogle();
+    this.user.UnlinkSocial('Google');
   }
 
   removeFacebook() {
-    this.user.UnlinkFacebook();
+    this.user.UnlinkSocial('Facebook');
   }
 }

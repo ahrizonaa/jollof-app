@@ -101,19 +101,15 @@ export class UserService {
     this.logoutEmitter.next(true);
   }
 
-  UnlinkGoogle() {
+  UnlinkSocial(provider: 'Google' | 'Facebook') {
     this.api
-      .post('unlinkgoogle', { user: this.currentUser })
+      .post(`unlinksocial?provider=${provider}`, { user: this.currentUser })
       .subscribe((res) => {
-        this.currentUser!.GoogleUser = null as any;
-      });
-  }
-
-  UnlinkFacebook() {
-    this.api
-      .post('unlinkfacebook', { user: this.currentUser })
-      .subscribe((res) => {
-        this.currentUser!.FacebookUser = null as any;
+        if (provider == 'Google') {
+          this.currentUser!.GoogleUser = null as any;
+        } else {
+          this.currentUser!.FacebookUser = null as any;
+        }
       });
   }
 }
