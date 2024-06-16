@@ -5,7 +5,6 @@ import {
   IonTitle,
   IonContent,
 } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -18,7 +17,6 @@ import { UserService } from '../services/user.service';
     IonToolbar,
     IonTitle,
     IonContent,
-    ExploreContainerComponent,
   ],
 })
 export class Tab1Page {

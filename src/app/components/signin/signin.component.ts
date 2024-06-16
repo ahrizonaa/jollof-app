@@ -18,8 +18,9 @@ import { IonContent, IonButton, IonIcon } from '@ionic/angular/standalone';
 
 declare const FB: any;
 
-import { ConfigService } from 'src/app/services/config.service';
 import { AngularIonicSocialLogin } from 'angular-ionic-social-login';
+
+import { environment as env } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -29,23 +30,15 @@ import { AngularIonicSocialLogin } from 'angular-ionic-social-login';
   imports: [IonContent, IonButton, IonIcon, NgIf, AngularIonicSocialLogin],
 })
 export class SigninComponent implements OnInit {
-  googleClientKey: string = '';
-  facebookClientKey: string = '';
+  googleClientKey: string = env.googleClientKey;
+  facebookClientKey: string = env.facebookClientKey;
 
   constructor(
     private router: Router,
     protected user: UserService,
-    private log: LogService,
-    private config: ConfigService
+    private log: LogService
   ) {
     if (!isPlatform('capacitor')) {
-      this.config.googleClientId.subscribe((clientId: string) => {
-        this.googleClientKey = clientId;
-
-        this.config.facebookAppId.subscribe(async (appId: string) => {
-          this.facebookClientKey = appId;
-        });
-      });
     }
   }
 

@@ -3,8 +3,8 @@ import { BehaviorSubject, skip } from 'rxjs';
 import { Device, DeviceInfo } from '@capacitor/device';
 import { Log } from '../types/Log';
 import { HttpClient } from '@angular/common/http';
-import { api } from '../utility/Api';
 import { ToastController } from '@ionic/angular';
+import { environment as env } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -66,7 +66,7 @@ export class LogService {
 
   private postLog(log: Log): void {
     this.http
-      .post(`${api.url}/log`, {
+      .post(`${env.apiUrl}/log`, {
         ...log,
         deviceInfo: this.deviceInfo,
       })

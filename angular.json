@@ -83,6 +83,9 @@
               "progress": false
             }
           },
+          "options": {
+            "port": 8101
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -126,9 +129,7 @@
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@ionic/angular-toolkit"
-    ],
+    "schematicCollections": ["@ionic/angular-toolkit"],
     "analytics": "30657d9c-c876-4ee6-b4af-a9a7262e139d"
   },
   "schematics": {
