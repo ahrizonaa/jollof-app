@@ -8,9 +8,6 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
-  triangle,
-  ellipse,
-  square,
   homeOutline,
   cashOutline,
   settingsOutline,
@@ -28,9 +25,6 @@ export class TabsPage {
 
   constructor() {
     addIcons({
-      triangle,
-      ellipse,
-      square,
       homeOutline,
       cashOutline,
       settingsOutline,
