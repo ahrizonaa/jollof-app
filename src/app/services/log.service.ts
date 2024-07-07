@@ -66,7 +66,7 @@ export class LogService {
 
   private postLog(log: Log): void {
     this.http
-      .post(`${env.apiUrl}/log`, {
+      .post(`${env.apiUrl}/common/log`, {
         ...log,
         deviceInfo: this.deviceInfo,
       })

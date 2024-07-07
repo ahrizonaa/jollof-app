@@ -22,7 +22,7 @@ export class UserService {
 
   SignIn(user: GoogleUser | FacebookUser, provider: 'Google' | 'Facebook') {
     this.api
-      .post('finduser', { user, provider: provider })
+      .post('common/finduser', { user, provider: provider })
       .subscribe(async (res: any) => {
         if (!res || res.user == null) {
           switch (provider) {
@@ -70,7 +70,7 @@ export class UserService {
       profile: profile,
     } as User;
 
-    this.api.post('signup', { user: newUser }).subscribe(
+    this.api.post('common/signup', { user: newUser }).subscribe(
       (res: { acknowledged: boolean; insertedId: string } | unknown) => {
         this.currentUser = newUser;
         this.pendingUser = null;
@@ -88,11 +88,11 @@ export class UserService {
   Update(profile: UserProfile) {
     this.currentUser!.profile = profile;
 
-    return this.api.post('updateprofile', { user: this.currentUser });
+    return this.api.post('common/updateprofile', { user: this.currentUser });
   }
 
   UploadPhoto(formData: FormData) {
-    return this.api.post('uploadphoto', formData);
+    return this.api.post('common/uploadphoto', formData);
   }
 
   async SignOut(params?: any) {
@@ -103,7 +103,7 @@ export class UserService {
 
   UnlinkSocial(provider: 'Google' | 'Facebook') {
     this.api
-      .post(`unlinksocial?provider=${provider}`, { user: this.currentUser })
+      .post(`common/unlinksocial?provider=${provider}`, { user: this.currentUser })
       .subscribe((res) => {
         if (provider == 'Google') {
           this.currentUser!.GoogleUser = null as any;
